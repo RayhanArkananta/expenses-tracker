@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "463938777636",
+    "firebase_url": "https://expence-tra-4c82c-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "expence-tra-4c82c",
+    "storage_bucket": "expence-tra-4c82c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:463938777636:android:da1fe8fff8f28c307f5eb1",
+        "android_client_info": {
+          "package_name": "com.rayhan.expencestracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "463938777636-5rmjafdrrf8odcltndmn01sqlr6o0bg7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rayhan.expencestracker",
+            "certificate_hash": "05ed40a18dfa088eeb9545c710496efd2ffe8f43"
+          }
+        },
+        {
+          "client_id": "463938777636-h0eg0e23pm6e6417f0v41lnmsb68vqbl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVsAg0OLrfsvTIBj_vUynXXVCG_U6yb2k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "463938777636-h0eg0e23pm6e6417f0v41lnmsb68vqbl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
