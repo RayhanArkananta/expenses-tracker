@@ -19,6 +19,8 @@ import com.rayhan.expencestracker.features.register.RegisterActivity
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
+
+    // VARIABEL INI HARUS ADA DI SINI (GLOBAL)
     private lateinit var googleSignInClient: GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,31 +30,32 @@ class LoginActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        // 0. Cek Sesi Login (Jika sudah login langsung ke Main)
+        // Cek Sesi Login
         if (auth.currentUser != null) {
             moveToMainActivity()
         }
 
-        // 1. Konfigurasi Google Sign In
+        // KONFIGURASI GOOGLE SIGN IN
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken("463938777636-h0eg0e23pm6e6417f0v41lnmsb68vqbl.apps.googleusercontent.com")
             .requestEmail()
             .build()
 
+        // INISIALISASI (Jangan pakai 'val' lagi di depan variabel ini)
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        // 2. Tombol Login Manual (Email & Password)
         binding.btnLogin.setOnClickListener {
             performEmailLogin()
         }
 
-        // 3. Tombol Login Google
+        // LOGIKA AGAR TIDAK NYANGKUT
         binding.btnGoogle.setOnClickListener {
-            val signInIntent = googleSignInClient.signInIntent
-            launcher.launch(signInIntent)
+            googleSignInClient.signOut().addOnCompleteListener {
+                val signInIntent = googleSignInClient.signInIntent
+                launcher.launch(signInIntent)
+            }
         }
 
-        // 4. Navigasi ke Halaman Register
         binding.btnGoToRegister.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
@@ -92,13 +95,10 @@ class LoginActivity : AppCompatActivity() {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
-                // INI BAGIAN PENTING: Pindah ke MainActivity
-                val intent = Intent(this, MainActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(intent)
-                finish()
+                moveToMainActivity()
             } else {
-                // Tampilkan pesan jika gagal di sisi Firebase
+                // Sekarang ini tidak akan merah karena variabelnya sudah global
+                googleSignInClient.signOut()
                 Toast.makeText(this, "Firebase Auth Gagal: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
             }
         }
